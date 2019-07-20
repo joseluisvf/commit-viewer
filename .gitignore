@@ -1,2 +1,14 @@
+# IntelliJ
+*.idea
+*.iml
+
+# Scala
 *.class
 *.log
+scalastyle-output.xml
+
+# Build
+target/
+
+# OS X
+.DS_Store
