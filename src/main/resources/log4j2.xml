@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="warn">
+<Configuration status="info">
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="[%d] %p %m (%c)%n" />
         </Console>
-        <File name="FileAppender" fileName="commit-viewer.log" immediateFlush="true" append="true">
+        <File name="FileAppender" fileName="src/main/resources/commit-viewer.log" immediateFlush="true" append="true">
             <PatternLayout pattern="[%d] %p %m (%c)%n"/>
         </File>
     </Appenders>
     <Loggers>
         <Root level="all">
-            <AppenderRef ref="FileAppender" level="info"/>
+            <AppenderRef ref="FileAppender" level="debug"/>
+            <AppenderRef ref="ConsoleAppender" level="info"/>
         </Root>
     </Loggers>
 </Configuration>

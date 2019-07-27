@@ -6,6 +6,8 @@
 *.class
 *.log
 scalastyle-output.xml
+src/main/resources/commit_history_result/commit-history.txt
+src/main/resources/commit_history_result/tmp/test-commit-history.txt
 
 # Build
 target/
