@@ -23,23 +23,23 @@
         <scoverage.plugin.version>1.4.0-M5</scoverage.plugin.version>
 
         <encoding>UTF-8</encoding>
-        <maven.assembly.version>3.1.0</maven.assembly.version>
     </properties>
 
     <dependencies>
-        <!--        for scala -->
+        <!-- for scala -->
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
         </dependency>
+        <!-- for testing -->
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.12</artifactId>
             <version>${scalatest.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--        for logging-->
+        <!-- for logging-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -133,29 +133,6 @@
                         <id>scalatest</id>
                         <goals>
                             <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven.assembly.version}</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.joseluisvf.commitviewer.EntryPoint</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
