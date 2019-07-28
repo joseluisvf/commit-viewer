@@ -8,7 +8,7 @@ sealed trait CommitViewerError extends Throwable {
 }
 
 case class ErrorRepositoryNotFoundFor(repositoryUrl: String) extends CommitViewerError {
-  override val errorMessage: String = s"Unable to clone the given repository url:<$repositoryUrl>"
+  override val errorMessage: String = s"Unable to clone the provided repository url:<$repositoryUrl>"
 }
 
 case class ErrorInvalidUrl(invalidUrl: String) extends CommitViewerError {

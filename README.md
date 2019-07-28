@@ -19,7 +19,7 @@ The commit viewer tool allows you to view the commit list for a given github pub
 
 1. All done. Now run the tool using maven inside the project folder and supply a github repository URL e.g.:
     ```
-    cd commit-viewer && mvn scala:run -DaddArgs=https://github.com/joseluisvf/commit-viewer
+    cd commit-viewer && mvn scala:run -DaddArgs=https://github.com/twbs/bootstrap
     ```
 
 1. You will find the [commit history file](src/main/resources/commit_history_result/commit-history.txt) in the project's resources. 
