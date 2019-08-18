@@ -19,6 +19,7 @@
         <log4j2.scala.api.version>11.0</log4j2.scala.api.version>
         <log4j2.api.version>2.11.1</log4j2.api.version>
         <log4j.configurationFile>config/log4j2.xml</log4j.configurationFile>
+        <scalaz.concurrent.version>7.2.28</scalaz.concurrent.version>
 
         <scoverage.plugin.version>1.4.0-M5</scoverage.plugin.version>
 
@@ -70,6 +71,11 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-stream_2.12</artifactId>
             <version>2.5.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-concurrent_2.12</artifactId>
+            <version>${scalaz.concurrent.version}</version>
         </dependency>
     </dependencies>
 
