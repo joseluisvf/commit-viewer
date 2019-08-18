@@ -5,7 +5,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation
 import akka.stream.ActorMaterializer
 import com.joseluisvf.commitviewer.common.CommitViewerCommon
-import com.joseluisvf.commitviewer.domain.service.CommitHistoryService
+import com.joseluisvf.commitviewer.service.CommitHistoryService
 import org.apache.logging.log4j.scala.Logging
 
 import scala.concurrent.ExecutionContextExecutor

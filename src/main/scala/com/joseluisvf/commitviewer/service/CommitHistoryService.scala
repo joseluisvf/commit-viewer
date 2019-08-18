@@ -1,4 +1,4 @@
-package com.joseluisvf.commitviewer.domain.service
+package com.joseluisvf.commitviewer.service
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.{Directives, Route}
