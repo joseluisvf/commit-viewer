@@ -1,8 +1,8 @@
 package com.joseluisvf.commitviewer.domain.service
 
-import com.joseluisvf.commitviewer.domain.commithistory.CommitRetrieverFallback
 import com.joseluisvf.commitviewer.exception.ErrorInvalidUrl
-import org.scalatest.{FunSuite, Matchers, WordSpec}
+import com.joseluisvf.commitviewer.service.CommitHistoryService
+import org.scalatest.{Matchers, WordSpec}
 
 import scala.util.Failure
 

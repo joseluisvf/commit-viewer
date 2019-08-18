@@ -17,12 +17,24 @@ The commit viewer tool allows you to view the commit list for a given github pub
     git clone https://github.com/joseluisvf/commit-viewer.git
     ```
 
-1. All done. Now run the tool using maven inside the project folder and supply a github repository URL e.g.:
-    ```
-    cd commit-viewer && mvn scala:run -DaddArgs=https://github.com/joseluisvf/commit-viewer
-    ```
+All done!
 
-1. You will find the [commit history file](src/main/resources/commit_history_result/commit-history.txt) in the project's resources. 
+### Trying it out
+1. Run the tool using maven inside the project folder:
+    ```
+    cd commit-viewer && mvn scala:run
+    ```
+    
+   This will setup an HTTP endpoint to port 12345 to which we can send requests using curl. Try one of the following:
+
+#### Request examples
+(Keep in mind all forward slashes in your github url will have to be UTF-encoded (%2F))   
+
+Checking out a busy public repository with a moderate amount of commits (this will take around 40s!):
+> curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fjumpserver%2Fjumpserver
+
+Checking out a busy public repository with tons of commits (this will take around 40s!):
+>curl --request GET --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Ftwbs%2Fbootstrap
 
 ## Running the tests
 
