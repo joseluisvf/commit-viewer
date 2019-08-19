@@ -30,11 +30,29 @@ All done!
 #### Request examples
 (Keep in mind all forward slashes in your github url will have to be UTF-encoded (%2F))   
 
-Checking out a busy public repository with a moderate amount of commits (this will take around 40s!):
-> curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fjumpserver%2Fjumpserver
+##### GET Commit History
+```
+http://localhost:12345/commits/<REPOSITORY_URL>
+```
+Checking out a busy public repository with a moderate amount of commits
+> curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fpython%2Fmypy
 
-Checking out a busy public repository with tons of commits (this will take around 40s!):
->curl --request GET --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Ftwbs%2Fbootstrap
+##### GET paginated Commit History
+```
+http://localhost:12345/commits/<REPO_URL>/<PAGE_NUMBER>
+```
+or
+```
+http://localhost:12345/commits/<REPO_URL>/<PAGE_NUMBER>/<COMMITS_PER_PAGE>
+```
+
+Note: COMMITS_PER_PAGE is optional and defaults to 10 commits per page.
+
+Second page of commits from a busy repository
+> curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fpython%2Fmypy/2
+
+Fifth page of commits from a busy repository, displaying 20 results per page
+> curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fpython%2Fmypy/5/20
 
 ## Running the tests
 
