@@ -21,12 +21,10 @@ object CommitHistoryService extends Directives with Logging {
     path("commits" / Segment) {
       githubRepositoryUrl =>
         get {
-          //          getCommitHistoryOf(githubRepositoryUrl) match {
-          getCommitHistoryOf(githubRepositoryUrl) match {
+          getCommitHistoryOf(githubRepositoryUrl, CommitViewerCommon.DEFAULT_TIMEOUT_MILLISECONDS) match {
             case Success(commitsAsText) =>
               complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, commitsAsText))
 
-            //TODO pagination
             case Failure(e) =>
               complete(StatusCodes.BadRequest, HttpEntity(ContentTypes.`text/html(UTF-8)`, s"FAIL:<h1>${e.getMessage}</h1>"))
           }
@@ -34,16 +32,19 @@ object CommitHistoryService extends Directives with Logging {
     }
   }
 
-  def getCommitHistoryOf(githubRepositoryUrl: String, timeoutInMilliseconds: Long = CommitViewerCommon.DEFAULT_TIMEOUT_GET_REQUEST_MILLISECONDS)
+  def getCommitHistoryOf(githubRepositoryUrl: String, timeoutInMilliseconds: Long = CommitViewerCommon.DEFAULT_TIMEOUT_MILLISECONDS)
   : Try[String] = {
     try {
-      Await.result(Future(blabla(githubRepositoryUrl)), timeoutInMilliseconds.milliseconds)
+      Await.result(Future(getCommitHistoryOf(githubRepositoryUrl)), timeoutInMilliseconds.milliseconds)
     } catch {
-      case e: TimeoutException => Failure(ErrorTimeout(CommitViewerCommon.DEFAULT_TIMEOUT_GET_REQUEST_MILLISECONDS))
+      case _: TimeoutException =>
+        Failure(
+          ErrorTimeout(CommitViewerCommon.DEFAULT_TIMEOUT_MILLISECONDS)
+        )
     }
   }
-  private[this] def blabla(githubRepositoryUrl: String): Try[String] = {
-    //TODO change method name
+
+  private[this] def getCommitHistoryOf(githubRepositoryUrl: String): Try[String] = {
     if (!isUrlValid(githubRepositoryUrl)) {
       Failure(ErrorInvalidUrl(githubRepositoryUrl))
     } else {
