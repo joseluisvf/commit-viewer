@@ -10,13 +10,13 @@ gitRepoUrl=$1
 temporaryDirectoryPath=$2
 commitHistoryFileName=$3
 placeholderSeparator=$4
-temporaryFolder=$temporaryDirectoryPath/eraseme
+temporaryDirectory=$temporaryDirectoryPath/eraseme
 
 SUCCESS_ERROR_CODE=0
 REPOSITORY_NOT_FOUND_ERROR_CODE=2
 
-# create a temporary folder and clone the repository in it
-mkdir $temporaryFolder && cd $temporaryFolder
+# create a temporary directory and clone the repository in it
+mkdir $temporaryDirectory && cd $temporaryDirectory
 git clone $gitRepoUrl
 
 # cd to the repo directory
@@ -26,12 +26,12 @@ repositoryName=${repositoryNameWithExtension%*\.git}
 # ensure the repository directory exists
 if ! [ -d "$repositoryName" ]; then
   echo "Aborting execution: unable to clone the provided repository $gitRepoUrl"
-  rm -rf $temporaryFolder
+  rm -rf $temporaryDirectory
   exit $REPOSITORY_NOT_FOUND_ERROR_CODE
 fi
 
 # create (or overwrite) a file with the commit history
 cd $repositoryName
 git log --format="%H$placeholderSeparator%s" > $temporaryDirectoryPath/$commitHistoryFileName
-rm -rf $temporaryFolder
+rm -rf $temporaryDirectory
 exit $SUCCESS_ERROR_CODE

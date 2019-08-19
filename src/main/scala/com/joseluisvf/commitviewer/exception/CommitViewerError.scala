@@ -33,3 +33,7 @@ case class ErrorInsufficientArguments() extends CommitViewerError {
                githubRepositoryUrl (REQUIRED): an url to an existing public github repository
     """.stripMargin
 }
+
+case class ErrorTimeout(timeoutDurationMilliseconds: Long) extends CommitViewerError {
+  override val errorMessage: String = s"Request timeout. The required operation exceeded the maximum amount of $timeoutDurationMilliseconds milliseconds."
+}
