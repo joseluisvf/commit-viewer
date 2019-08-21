@@ -11,22 +11,26 @@ import com.joseluisvf.commitviewer.domain.commit.Commit
   * - if the amount of commits requested exceeds page capacity, then the last page of 10 commits is returned
   * - if commits per page exceeds the total of commits, then all of them are returned
   */
-case class PaginationAssistant(commits: List[Commit], commitsPerPage: Int = 10) {
-  def getResultsFor(pageNumber: Int)
+case class PaginationAssistant(commits: List[Commit], commitsPerPage: Int = PaginationAssistant.DEFAULT_AMOUNT_COMMITS_PER_PAGE) {
+  def getCommitsFor(pageNumber: Int)
   : List[Commit] = {
     val pageNumberStartingAtZero = pageNumber - 1
     val commitsSize = commits.size
-    val resultsOfDesiredPage = pageNumberStartingAtZero * commitsPerPage
+    val commitsOfDesiredPage = pageNumberStartingAtZero * commitsPerPage
 
     if (commitsPerPage > commitsSize) {
       commits
     } else {
-      if (resultsOfDesiredPage > commitsSize) {
+      if (commitsOfDesiredPage > commitsSize) {
         val lastPageNumber = commitsSize / commitsPerPage
-        getResultsFor(lastPageNumber)
+        getCommitsFor(lastPageNumber)
       } else {
-        commits.slice(resultsOfDesiredPage, resultsOfDesiredPage + commitsPerPage)
+        commits.slice(commitsOfDesiredPage, commitsOfDesiredPage + commitsPerPage)
       }
     }
   }
+}
+
+object PaginationAssistant {
+  val DEFAULT_AMOUNT_COMMITS_PER_PAGE = 10
 }

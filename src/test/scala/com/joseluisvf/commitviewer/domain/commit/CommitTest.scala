@@ -17,6 +17,7 @@ class CommitTest extends WordSpec with Matchers {
             commit.getSubject shouldEqual subject
           }
         }
+
         "the incorrect separator is used should throw an exception" in {
           val invalidSeparator = s"----------"
           val commitWithInvalidSeparatorAsText = s"$hash$invalidSeparator$subject"

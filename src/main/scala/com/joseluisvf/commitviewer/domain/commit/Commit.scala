@@ -21,7 +21,7 @@ class Commit(private val hash: String, private val subject: String) {
 }
 
 object Commit {
-  val placeholderSeparator: String = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  val placeholderSeparator = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   def apply(commitAsText: String): Commit = {
     require(commitAsText != "", Failure(ErrorEmptyCommitTextualRepresentation()))

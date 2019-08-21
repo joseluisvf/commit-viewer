@@ -11,6 +11,10 @@ import org.apache.logging.log4j.scala.Logging
 import scala.concurrent.ExecutionContextExecutor
 import scala.io.StdIn
 
+/**
+  * Responsible for setting up the main entry point of the application, namely a pair of HTTP endpoints.
+  *
+  */
 object EntryPoint extends App with Logging with RouteConcatenation {
   setupHttpEndpoint()
 

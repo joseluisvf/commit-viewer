@@ -8,16 +8,20 @@ import scala.io.Source
 import scala.sys.process._
 import scala.util.{Failure, Success, Try}
 
+/**
+  * Responsible for invoking the fallback script for commit retrieval.
+  */
 object CommitRetrieverFallback extends Logging {
   val SUCCESS_ERROR_CODE = 0
   val REPOSITORY_NOT_FOUND_ERROR_CODE = 2
   type CommitsAsText = List[String]
 
-  def getCommitHistoryOf(githubRepositoryUrl: String, targetDir: String, targetFileName: String): Try[CommitsAsText] = {
+  def getCommitHistoryOf(githubRepositoryUrl: String, targetDir: String, targetFileName: String)
+  : Try[CommitsAsText] = {
     createCommitHistoryFile(githubRepositoryUrl, targetDir, targetFileName) match {
       case Failure(e) => Failure(e)
       case Success(_) =>
-        val commitsAsText: CommitsAsText
+        val commitsAsText
         = Source
           .fromFile(s"$targetDir/$targetFileName")
           .getLines()
@@ -29,12 +33,12 @@ object CommitRetrieverFallback extends Logging {
 
   private def createCommitHistoryFile(githubRepositoryUrl: String, targetDir: String, commitHistoryFileName: String)
   : Try[Unit] = {
-    val command =
-      s"${System.getProperty("user.dir")}/src/main/resources/commit_history_result/create-file-with-commit-history.sh" +
-        s" ${githubRepositoryUrl.withoutTrailingForwardSlash()}" +
-        s" $targetDir" +
-        s" $commitHistoryFileName" +
-        s" ${Commit.placeholderSeparator}"
+    val command
+    = s"${System.getProperty("user.dir")}/src/main/resources/commit_history_result/create-file-with-commit-history.sh" +
+      s" ${githubRepositoryUrl.withoutTrailingForwardSlash()}" +
+      s" $targetDir" +
+      s" $commitHistoryFileName" +
+      s" ${Commit.placeholderSeparator}"
 
     logger.debug(s"Running the following command: <$command>")
     val fallbackScriptReturnCode = command.!
@@ -56,4 +60,5 @@ object CommitRetrieverFallback extends Logging {
       }
     }
   }
+
 }
