@@ -6,6 +6,10 @@ import org.scalatest.{Matchers, WordSpec}
 import scala.io.Source
 import scala.util.Failure
 
+/*
+  * Please note that in order for the tests cases envolving using the Github API to work, they
+  * expect a valid access token at src/test/resources/testaccesstoken.txt.
+  */
 class CommitHistoryServiceTest extends WordSpec with Matchers {
   "A CommitHistoryService when retrieving commit history" when {
     val accessToken = Source.fromFile("src/test/resources/testaccesstoken.txt").getLines().toList.mkString

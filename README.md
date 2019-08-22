@@ -1,5 +1,4 @@
 # Commit Viewer
-
 The commit viewer tool allows you to view the commit list for a github public repository.
 
 It sets-up HTTP endpoints to perform this task: one with support for pagination and one without.
@@ -7,7 +6,7 @@ It sets-up HTTP endpoints to perform this task: one with support for pagination 
 ## Strategy
 The application will first attempt to use Github's API. In the event of any failure, a fallback method will be used.
 
-For this reason, the path to a file containing a valid Github access token should be provided to the application, although this is not mandatory. 
+For this reason, the path to a file containing a valid Github access token should be provided to the application, although this is not mandatory.
 
 
 
@@ -17,9 +16,10 @@ For this reason, the path to a file containing a valid Github access token shoul
 
 * scala 2.12+
 * maven
-* git 
+* git
 
 ### Installing
+
 1. Simply clone the project. That's all there is to it.
 
     ```
@@ -27,14 +27,16 @@ For this reason, the path to a file containing a valid Github access token shoul
     ```
 
 ### Trying it out
+
 1. Run the tool using maven
     ```
     cd commit-viewer && mvn scala:run [-DaddArgs=<"PATH_TO_GITHUB_ACCESS_TOKEN">]
     ```
-    
+
    This will setup an HTTP endpoint to port 12345 to which we can send requests using curl. Try one of the following:
 
 #### Requests
+
 Note: Keep in mind all forward slashes in your github url will have to be UTF-encoded (%2F)
 
 E.g.: `https://github.com/twbs/bootstrap` should be `https:%2F%2Fgithub.com%2Ftwbs%2Fbootstrap`
@@ -62,7 +64,7 @@ or
 curl --request GET   --url http://localhost:12345/commits/<REPO_URL>/<PAGE_NUMBER>/<COMMITS_PER_PAGE>
 ```
 
-This offers similar functionality to that of "Get Commit History" but with the added flexibility of pagination. 
+This offers similar functionality to that of "Get Commit History" but with the added flexibility of pagination.
 
 To this end, one must specify the page number desired and optionally how many commits one wants per page.
 
@@ -70,6 +72,7 @@ Note: COMMITS_PER_PAGE is optional and defaults to 10.
 
 
 ###### E.g.
+
 Getting the second page of commits for a busy repository
 ```
 curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com%2Fpython%2Fmypy/2
@@ -100,6 +103,7 @@ curl --request GET   --url http://localhost:12345/commits/https:%2F%2Fgithub.com
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Note to Reviewers
+
 Hi! I hope this project meets your standards; I sure had fun with its development.
 
 Please feel free to take your gloves off and be as brutal as possible; there's always room for improvement!
