@@ -19,6 +19,10 @@ case class ErrorEmptyCommitTextualRepresentation() extends CommitViewerError {
   override val errorMessage: String = s"Unable to create a commit from an empty string."
 }
 
+case class ErrorBadGithubCredentials() extends CommitViewerError {
+  override val errorMessage: String = s"The credentials provided are deemed invalid for interaction with Github's API."
+}
+
 case class ErrorMalformedCommitTextualRepresentation(malformedCommitTextualRepresentation: String) extends CommitViewerError {
   override val errorMessage: String =
     s"""
