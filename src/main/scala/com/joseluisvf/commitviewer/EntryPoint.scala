@@ -9,20 +9,28 @@ import com.joseluisvf.commitviewer.service.CommitHistoryService
 import org.apache.logging.log4j.scala.Logging
 
 import scala.concurrent.ExecutionContextExecutor
-import scala.io.StdIn
+import scala.io.{Source, StdIn}
+import scala.util.{Failure, Success, Try}
 
 /**
   * Responsible for setting up the main entry point of the application, namely a pair of HTTP endpoints.
   *
+  * If the path to a file containing a valid Github access token is provided
   */
 object EntryPoint extends App with Logging with RouteConcatenation {
-  setupHttpEndpoint()
+  getAccessTokenFromFileIfPresent(args) match {
+    case Success(token) => setupHttpEndpoint(token)
+    case Failure(e) =>
+      logger.error(e.getMessage)
+      System.exit(1)
+  }
 
-  private def setupHttpEndpoint(): Unit = {
+  private def setupHttpEndpoint(githubAccessToken: String): Unit = {
     implicit val system: ActorSystem = ActorSystem()
     implicit val materialiser: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
-    val bindingFuture = Http().bindAndHandle(CommitHistoryService.route, "localhost", CommitViewerCommon.httpEndpointPortNumber)
+    val commitHistoryService = new CommitHistoryService(githubAccessToken)
+    val bindingFuture = Http().bindAndHandle(commitHistoryService.route, "localhost", CommitViewerCommon.httpEndpointPortNumber)
 
     logger.info(s"Server online at http://localhost:${CommitViewerCommon.httpEndpointPortNumber}/\nPress RETURN to stop...")
     StdIn.readLine()
@@ -31,5 +39,14 @@ object EntryPoint extends App with Logging with RouteConcatenation {
       .flatMap(_.unbind())
       .onComplete(_ => system.terminate())
   }
-}
 
+  private def getAccessTokenFromFileIfPresent(args: Array[String])
+  : Try[String] = {
+    if (args.nonEmpty) {
+      val githubAccessTokenFilePath = args(0)
+      Try(Source.fromFile(githubAccessTokenFilePath).getLines().toList.mkString)
+    } else {
+      Success("")
+    }
+  }
+}
