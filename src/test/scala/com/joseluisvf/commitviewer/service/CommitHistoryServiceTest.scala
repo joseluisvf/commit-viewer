@@ -7,8 +7,9 @@ import scala.io.Source
 import scala.util.Failure
 
 /*
-  * Please note that in order for the tests cases envolving using the Github API to work, they
-  * expect a valid access token at src/test/resources/testaccesstoken.txt.
+  * Please note that in order for the test cases involving using the Github API to properly work, they
+  * expect a valid access token at src/test/resources/testaccesstoken.txt. As such, please replace the
+  * contents of that file with a valid access token before executing this test suite.
   */
 class CommitHistoryServiceTest extends WordSpec with Matchers {
   "A CommitHistoryService when retrieving commit history" when {
@@ -105,3 +106,4 @@ class CommitHistoryServiceTest extends WordSpec with Matchers {
     }
   }
 }
+
